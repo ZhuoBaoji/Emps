@@ -1,8 +1,0 @@
-com.app
-com.baseaction
-com.dao
-com.dao.impl
-com.po
-com.service
-com.service.impl
-com.util
