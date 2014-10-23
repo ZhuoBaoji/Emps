@@ -1,0 +1,83 @@
+<?xml version="1.0"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:jaxws="http://cxf.apache.org/jaxws"
+	xmlns:context="http://www.springframework.org/schema/context" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+						http://www.springframework.org/schema/beans/spring-beans-3.0.xsd 
+						http://www.springframework.org/schema/context 
+						http://www.springframework.org/schema/context/spring-context-3.0.xsd 
+						http://www.springframework.org/schema/tx 
+						http://www.springframework.org/schema/tx/spring-tx-3.0.xsd 
+						http://www.springframework.org/schema/aop 
+						http://www.springframework.org/schema/aop/spring-aop-3.0.xsd 
+						http://cxf.apache.org/jaxws 
+                        http://cxf.apache.org/schemas/jaxws.xsd">
+
+<!-- 分散配置操作 -->
+     <context:property-placeholder location="classpath:jdbc.properties"/>
+
+	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
+		<property name="driverClass" value="oracle.jdbc.driver.OracleDriver"/>
+		<property name="jdbcUrl" value="jdbc:oracle:thin:@localhost:1521:orcl"/>
+		<property name="user" value="system"/>
+		<property name="password" value="admin"/>
+
+		<property name="maxPoolSize" value="10"/>
+		<property name="minPoolSize" value="5"/>
+		<property name="initialPoolSize" value="4"/>
+		<property name="acquireIncrement" value="3"/>
+	</bean>
+
+
+	<!-- 本地会话工厂bean,spring整合hibernate的核心入口 -->
+	<bean id="sessionFactory" class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
+		<property name="dataSource" ref="dataSource"></property>
+		<property name="configLocation" value="classpath:hibernate.cfg.xml"/>
+		<!-- 指定映射文件目录 -->
+		<property name="mappingDirectoryLocations">
+			<list>
+				<value>classpath:com/po</value>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="empDao" class="com.dao.impl.EmpDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<bean id="empService" class="com.service.impl.EmpServiceImpl">
+		<property name="dao" ref="empDao"></property>
+	</bean>
+	<bean id="empAction" class="com.baseaction.EmpAction">
+		<property name="empService" ref="empService"></property>
+	</bean>
+	<bean id="xls" class="com.baseaction.Xls">
+		<property name="empService" ref="empService"></property>
+	</bean>
+
+<!-- 配置事务容器 -->
+	<bean id="transactionManager"
+		class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+<!-- 定义事务规则 -->
+	<tx:advice id="txAdvice" transaction-manager="transactionManager">
+		<tx:attributes>
+			<tx:method name="*" isolation="DEFAULT" propagation="REQUIRED" />
+		</tx:attributes>
+	</tx:advice>
+	
+	
+	<!-- 定义事务入口 -->
+	<aop:config proxy-target-class="true">
+		<aop:pointcut expression="execution(* com.dao.impl.*.*(..))" id="pointercut" />
+		<aop:advisor advice-ref="txAdvice" pointcut-ref="pointercut" />
+	</aop:config>
+
+
+
+
+
+
+
+</beans>

@@ -1,0 +1,71 @@
+<?xml version="1.0"?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.1.7//EN"
+	"http://struts.apache.org/dtds/struts-2.1.7.dtd">
+<struts>
+	<!-- 简单主题 -->
+	<constant name="struts.ui.theme" value="simple" />
+	<!-- 开发模式 -->
+	<constant name="struts.devMode" value="true" />
+
+	<package name="Emps" namespace="/" extends="struts-default,json-default">
+
+		<!-- 发布信息Action -->
+		<action name="empAction_emplist" class="com.baseaction.EmpAction"
+			method="emplist">
+			<result name="index">/index.jsp</result>
+		</action>
+
+		<action name="empAction_delete" class="com.baseaction.EmpAction"
+			method="delete">
+			<result name="success" type="redirectAction">
+				<param name="actionName">empAction_emplist</param>
+			</result>
+		</action>
+		<action name="empAction_updateEmp" class="com.baseaction.EmpAction"
+			method="updateEmp">
+			<result name="success" type="redirectAction">
+				<param name="actionName">empAction_emplist</param>
+			</result>
+		</action>
+
+		<action name="empAction_addEmp" class="com.baseaction.EmpAction"
+			method="addEmp">
+			<result name="success" type="redirectAction">
+				<param name="actionName">empAction_emplist</param>
+			</result>
+			<result name="input" type="redirectAction">
+				<param name="actionName">empAction_emplist</param>
+			</result>
+		</action>
+
+		<action name="empAction_emp" class="com.baseaction.EmpAction"
+			method="emp">
+			<result name="success">/addEmp.jsp</result>
+		</action>
+
+		<action name="empAction_loadEmp" class="com.baseaction.EmpAction"
+			method="loadEmp">
+			<result name="load">/loadEmp.jsp</result>
+		</action>
+		<!-- 导出Excle -->
+		<action name="xls_xls" class="com.baseaction.Xls" method="xls">
+			<result name="success" type="redirectAction">
+				<param name="actionName">empAction_emplist</param>
+			</result>
+		</action>
+
+		<!-- 导入Excle -->
+		<action name="xls_inxls" class="com.baseaction.Xls" method="inxls">
+			<result name="success" type="redirectAction">	
+				<param name="actionName">empAction_emplist</param>
+			</result>
+		</action>
+		<!-- 导出pdf -->
+		<action name="pdf_pdf" class="com.baseaction.Pdf1" method="pdf">
+			<result name="success" type="redirectAction">	
+				<param name="actionName">empAction_emplist</param>
+			</result>
+		</action>
+	</package>
+</struts>

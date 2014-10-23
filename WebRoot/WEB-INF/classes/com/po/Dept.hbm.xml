@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="com.po">
+
+	<!--
+		package是类的包名 可以不写 如果不写 下面的 Class节点下的 name属性 就要写成 po.User
+	
+	
+	-->
+	<class name="Dept" table="t_dept">
+		<id name="id" type="integer">
+	      <!-- 主键生成机制 -->
+			<generator class="sequence" />
+		</id>
+		<property name="dname"  column="dname" type="string"></property>
+		
+		
+		<set name="emps"  inverse="true"  cascade="save-update">
+		<key> <column name="deptid"></column></key>
+		<one-to-many class="Emp"/>
+		
+		</set>
+		
+	</class>
+</hibernate-mapping>
