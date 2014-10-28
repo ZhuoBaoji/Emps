@@ -21,7 +21,7 @@ import com.po.Dept;
 import com.po.Emp;
 import com.po.Student;
 import com.util.PdfParagraph;
-import com.util.StrHelp;
+import com.util.XlsUtil;;
 
 
 
@@ -127,7 +127,7 @@ public class Pdf2<T> {
 
          // 添加文档元数据信息
 
-         document.addTitle(StrHelp.getChinese(title));
+         document.addTitle(XlsUtil.getChinese(title));
 
          document.addSubject("export information");
 

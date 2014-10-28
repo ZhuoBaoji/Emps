@@ -16,3 +16,4 @@ dname varchar2(20)
 
 create sequence emp_seq start with 1 increment by 1NOCACHE;
 
+SELECT * from t_p_grade_head h where h.index_id=138;

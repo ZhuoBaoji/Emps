@@ -1,23 +1,31 @@
 package com.app;
 
+import java.sql.Connection;
+import java.sql.SQLException;
+
+import javax.sql.DataSource;
+
 import org.apache.log4j.Logger;
 import org.apache.log4j.PropertyConfigurator;
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-import com.service.impl.EmpServiceImpl;
-
 public class AppTest {
 	@Test
 	public void test() {
 		ApplicationContext conte = new ClassPathXmlApplicationContext(
 				"beans.xml");
-		EmpServiceImpl ds = (EmpServiceImpl) conte.getBean("empservice");
-		System.out.println(ds);
+		  DataSource dataSource=(DataSource)conte.getBean("dataSource");
+		  try {
+			Connection conn = dataSource.getConnection();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		System.out.println( conte.getBean("dataSource"));
 	}
 
-	@Test
+	//@Test
 	public void test1() {
 		int q = 3;
 		PropertyConfigurator.configure("classpath:Properties.properties");
@@ -25,9 +33,13 @@ public class AppTest {
 		log.debug("aaaa");
 	}
 
-	@Test
+	//@Test
 	public void Test2() {
-		AppTest a = new AppTest();
-
+int a=100;
+Integer b=100;
+Integer c=new Integer(100);
+System.out.println(a==b);
+System.out.println(b==c);
+System.out.println(a==c);
 	}
 }

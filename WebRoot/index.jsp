@@ -12,7 +12,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<title>员工列表</title>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 		<link rel="stylesheet" type="text/css" href="css/style.css" />
-	<script type="text/javascript" src="/Emps/js/@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@jquery-1.8.3.js"></script>
+	<script type="text/javascript" src="/Emps/js/jquery-1.8.3.js"></script>
 	<script language=JavaScript>
 	$(function() {
 		$@@@@@@@@@@@@@@@@@@@('#delete').click(function() {
@@ -24,7 +24,22 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		});
 		});
 	})
-</script>     
+</script>    
+
+  <script type="text/javascript">  
+    function initialize() {  
+        var mp = new BMap.Map('map');  
+        mp.centerAndZoom(new BMap.Point(116.432318,40.03931), 22);  
+    }  
+      
+    function loadScript() {  
+        var script = document.createElement("script");  
+        script.src = "http://api.map.baidu.com/api?v=1.4&callback=initialize";  
+        document.body.appendChild(script);  
+    }  
+      
+    window.onload = loadScript;  
+    </script>   
 	</head>
 	<body>
 		<div id="wrap">
@@ -89,7 +104,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						
 						<input type="button" class="button" value="导出Excle" onclick="location='xls_xls.action'"/>
 							<input type="button" class="button" value="导出PDF" onclick="location='pdf_pdf.action'"/>
-						
+							<input type="button" class="button" value="百度地图" onclick="location='map.action'"/>
+					 <div id="map" style="width: 1500px; height: 1000px"></div>  						
 					</p>
 			<c:choose>
 			   <c:when test="${pageNo eq 1}">
@@ -108,6 +124,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<br/>
 				</div>
 			</div>
+			
 			<div id="footer">
 				<div id="footer_bg">
 				</div>

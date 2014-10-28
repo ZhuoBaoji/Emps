@@ -19,10 +19,16 @@
 
 	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
 		<property name="driverClass" value="oracle.jdbc.driver.OracleDriver"/>
+		<!-- oracle
 		<property name="jdbcUrl" value="jdbc:oracle:thin:@localhost:1521:orcl"/>
 		<property name="user" value="system"/>
 		<property name="password" value="admin"/>
-
+		 -->
+		<property name="jdbcUrl" value="jdbc:oracle:thin:@192.168.201.59:1521:MRDMS"/>
+		<property name="user" value="m_sys"/>
+		<property name="password" value="manager"/>
+		
+		
 		<property name="maxPoolSize" value="10"/>
 		<property name="minPoolSize" value="5"/>
 		<property name="initialPoolSize" value="4"/>

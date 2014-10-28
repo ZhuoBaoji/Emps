@@ -49,7 +49,11 @@
 			<result name="load">/loadEmp.jsp</result>
 		</action>
 		<!-- 导出Excle -->
-		<action name="xls_xls" class="com.baseaction.Xls" method="xls">
+		<action name="xls_xls"  class="com.baseaction.Xls" method="xls" >
+		<param name="startrow">5</param><!-- qi shi hang  -->
+		<param name="startcolu">1</param>
+		<param name="xlsPath">D:\\11.xlsx</param><!-- mo ban wei zhi  -->
+		<param name="img">D:\\book.jpg</param>
 			<result name="success" type="redirectAction">
 				<param name="actionName">empAction_emplist</param>
 			</result>
@@ -66,6 +70,10 @@
 			<result name="success" type="redirectAction">	
 				<param name="actionName">empAction_emplist</param>
 			</result>
+		</action>
+			<!--百度地图 -->
+		<action name="map" class="com.baseaction.Map" method="map">
+			<result name="map">/map.jsp</result>
 		</action>
 	</package>
 </struts>

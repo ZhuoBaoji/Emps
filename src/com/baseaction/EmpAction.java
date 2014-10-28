@@ -8,14 +8,14 @@ import com.po.Emp;
 import com.service.impl.EmpServiceImpl;
 import com.util.BaseAction;
 
-public class EmpAction extends BaseAction implements ModelDriven<Object> {
+public class EmpAction extends BaseAction implements ModelDriven<Emp> {
 	/**
 	 * implements ModelDriven<Emp>
 	 */
 	private static final long serialVersionUID = 1L;
 	private EmpServiceImpl empService;
 	private List<Emp> emps;
-	private Emp emp;
+	private Emp emp=new Emp();
 //	private Integer id;
 //	private String name;
 //	private Integer age;
@@ -127,7 +127,7 @@ public class EmpAction extends BaseAction implements ModelDriven<Object> {
 
 	// Ôö¼Ó
 	public String addEmp() {
-		System.out.println(emp.getAge() + emp.getName());
+		System.out.println(emp.getAge() + emp.getName()+emp.getSalary());
 //		emp.setAge(age);
 		Dept dept = new Dept();
 		dept.setId(emp.getDeptid().getId());
@@ -144,7 +144,7 @@ public class EmpAction extends BaseAction implements ModelDriven<Object> {
 //		return "load";
 //	}
 
-	public Object getModel() {
+	public Emp getModel() {
 		// TODO Auto-generated method stub
 		if (emp != null) {
 			return emp;
